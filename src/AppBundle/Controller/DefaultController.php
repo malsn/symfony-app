@@ -30,10 +30,7 @@ class DefaultController extends Controller
         $query_str = $request->query->get('query');
 		$query = new SearchLog();
 		$query->setQuery($query_str);
-		$query->setDate(new \DateTime());
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($query);
-		$em->flush();
+		$query->setDate(new \DateTime());		
 		
 		$ch = curl_init();
 		/*$url = 'https://maps.googleapis.com/maps/api/place/queryautocomplete/json?input='.$query_str.
@@ -45,7 +42,13 @@ class DefaultController extends Controller
 		
 		$response = curl_exec($ch);		
 		$response = new Response($response);
-		$response->headers->set("Access-Control-Allow-Origin", "*");
+		
+		$query->setResult($response);
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($query);
+		$em->flush();
+		
+		$response->headers->set("Access-Control-Allow-Origin", "*");		
 		return $response;
     }
 }

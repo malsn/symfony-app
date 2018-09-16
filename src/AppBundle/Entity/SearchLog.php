@@ -21,6 +21,11 @@ class SearchLog
      * @var string
      */
     private $query;
+	
+	/**
+     * @var string
+     */
+    private $result;
 
 
     /**
@@ -79,5 +84,29 @@ class SearchLog
     public function getQuery()
     {
         return $this->query;
+    }
+	
+	/**
+     * Set result
+     *
+     * @param string $result
+     *
+     * @return SearchLog
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
+
+        return $this;
+    }
+
+    /**
+     * Get result
+     *
+     * @return string
+     */
+    public function getResult()
+    {
+        return $this->result;
     }
 }
