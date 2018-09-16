@@ -1,15 +1,15 @@
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Добро пожаловать!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-		<link rel="stylesheet" href="style.ed71ad5c02a30213c8e0.css?2589933569556fde6aff">
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-		<div id="root"></div>
-		<script src="main.2c9f8cddbd09af660d3e.js?2589933569556fde6aff"></script>
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Добро пожаловать!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <link rel="stylesheet" href="style.ed71ad5c02a30213c8e0.css?2589933569556fde6aff">
+</head>
+<body>
+{% block body %}{% endblock %}
+<div id="root"></div>
+<script src="main.2c9f8cddbd09af660d3e.js?2589933569556fde6aff"></script>
+{% block javascripts %}{% endblock %}
+</body>
 </html>

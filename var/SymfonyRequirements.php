@@ -41,19 +41,19 @@ class Requirement
     /**
      * Constructor that initializes the requirement.
      *
-     * @param bool        $fulfilled   Whether the requirement is fulfilled
-     * @param string      $testMessage The message for testing the requirement
-     * @param string      $helpHtml    The help text formatted in HTML for resolving the problem
-     * @param string|null $helpText    The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
-     * @param bool        $optional    Whether this is only an optional recommendation not a mandatory requirement
+     * @param bool $fulfilled Whether the requirement is fulfilled
+     * @param string $testMessage The message for testing the requirement
+     * @param string $helpHtml The help text formatted in HTML for resolving the problem
+     * @param string|null $helpText The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
+     * @param bool $optional Whether this is only an optional recommendation not a mandatory requirement
      */
     public function __construct($fulfilled, $testMessage, $helpHtml, $helpText = null, $optional = false)
     {
-        $this->fulfilled = (bool) $fulfilled;
-        $this->testMessage = (string) $testMessage;
-        $this->helpHtml = (string) $helpHtml;
-        $this->helpText = null === $helpText ? strip_tags($this->helpHtml) : (string) $helpText;
-        $this->optional = (bool) $optional;
+        $this->fulfilled = (bool)$fulfilled;
+        $this->testMessage = (string)$testMessage;
+        $this->helpHtml = (string)$helpHtml;
+        $this->helpText = null === $helpText ? strip_tags($this->helpHtml) : (string)$helpText;
+        $this->optional = (bool)$optional;
     }
 
     /**
@@ -117,19 +117,26 @@ class PhpIniRequirement extends Requirement
     /**
      * Constructor that initializes the requirement.
      *
-     * @param string        $cfgName           The configuration name used for ini_get()
-     * @param bool|callback $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
+     * @param string $cfgName The configuration name used for ini_get()
+     * @param bool|callback $evaluation Either a boolean indicating whether the configuration should evaluate to true or false,
      *                                         or a callback function receiving the configuration value as parameter to determine the fulfillment of the requirement
-     * @param bool          $approveCfgAbsence If true the Requirement will be fulfilled even if the configuration option does not exist, i.e. ini_get() returns false.
+     * @param bool $approveCfgAbsence If true the Requirement will be fulfilled even if the configuration option does not exist, i.e. ini_get() returns false.
      *                                         This is helpful for abandoned configs in later PHP versions or configs of an optional extension, like Suhosin.
      *                                         Example: You require a config to be true but PHP later removes this config and defaults it to true internally.
-     * @param string|null   $testMessage       The message for testing the requirement (when null and $evaluation is a boolean a default message is derived)
-     * @param string|null   $helpHtml          The help text formatted in HTML for resolving the problem (when null and $evaluation is a boolean a default help is derived)
-     * @param string|null   $helpText          The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
-     * @param bool          $optional          Whether this is only an optional recommendation not a mandatory requirement
+     * @param string|null $testMessage The message for testing the requirement (when null and $evaluation is a boolean a default message is derived)
+     * @param string|null $helpHtml The help text formatted in HTML for resolving the problem (when null and $evaluation is a boolean a default help is derived)
+     * @param string|null $helpText The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
+     * @param bool $optional Whether this is only an optional recommendation not a mandatory requirement
      */
-    public function __construct($cfgName, $evaluation, $approveCfgAbsence = false, $testMessage = null, $helpHtml = null, $helpText = null, $optional = false)
-    {
+    public function __construct(
+        $cfgName,
+        $evaluation,
+        $approveCfgAbsence = false,
+        $testMessage = null,
+        $helpHtml = null,
+        $helpText = null,
+        $optional = false
+    ) {
         $cfgValue = ini_get($cfgName);
 
         if (is_callable($evaluation)) {
@@ -157,7 +164,8 @@ class PhpIniRequirement extends Requirement
             $fulfilled = $evaluation == $cfgValue;
         }
 
-        parent::__construct($fulfilled || ($approveCfgAbsence && false === $cfgValue), $testMessage, $helpHtml, $helpText, $optional);
+        parent::__construct($fulfilled || ($approveCfgAbsence && false === $cfgValue), $testMessage, $helpHtml,
+            $helpText, $optional);
     }
 }
 
@@ -193,10 +201,10 @@ class RequirementCollection implements IteratorAggregate
     /**
      * Adds a mandatory requirement.
      *
-     * @param bool        $fulfilled   Whether the requirement is fulfilled
-     * @param string      $testMessage The message for testing the requirement
-     * @param string      $helpHtml    The help text formatted in HTML for resolving the problem
-     * @param string|null $helpText    The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
+     * @param bool $fulfilled Whether the requirement is fulfilled
+     * @param string $testMessage The message for testing the requirement
+     * @param string $helpHtml The help text formatted in HTML for resolving the problem
+     * @param string|null $helpText The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
      */
     public function addRequirement($fulfilled, $testMessage, $helpHtml, $helpText = null)
     {
@@ -206,10 +214,10 @@ class RequirementCollection implements IteratorAggregate
     /**
      * Adds an optional recommendation.
      *
-     * @param bool        $fulfilled   Whether the recommendation is fulfilled
-     * @param string      $testMessage The message for testing the recommendation
-     * @param string      $helpHtml    The help text formatted in HTML for resolving the problem
-     * @param string|null $helpText    The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
+     * @param bool $fulfilled Whether the recommendation is fulfilled
+     * @param string $testMessage The message for testing the recommendation
+     * @param string $helpHtml The help text formatted in HTML for resolving the problem
+     * @param string|null $helpText The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
      */
     public function addRecommendation($fulfilled, $testMessage, $helpHtml, $helpText = null)
     {
@@ -219,37 +227,51 @@ class RequirementCollection implements IteratorAggregate
     /**
      * Adds a mandatory requirement in form of a php.ini configuration.
      *
-     * @param string        $cfgName           The configuration name used for ini_get()
-     * @param bool|callback $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
+     * @param string $cfgName The configuration name used for ini_get()
+     * @param bool|callback $evaluation Either a boolean indicating whether the configuration should evaluate to true or false,
      *                                         or a callback function receiving the configuration value as parameter to determine the fulfillment of the requirement
-     * @param bool          $approveCfgAbsence If true the Requirement will be fulfilled even if the configuration option does not exist, i.e. ini_get() returns false.
+     * @param bool $approveCfgAbsence If true the Requirement will be fulfilled even if the configuration option does not exist, i.e. ini_get() returns false.
      *                                         This is helpful for abandoned configs in later PHP versions or configs of an optional extension, like Suhosin.
      *                                         Example: You require a config to be true but PHP later removes this config and defaults it to true internally.
-     * @param string        $testMessage       The message for testing the requirement (when null and $evaluation is a boolean a default message is derived)
-     * @param string        $helpHtml          The help text formatted in HTML for resolving the problem (when null and $evaluation is a boolean a default help is derived)
-     * @param string|null   $helpText          The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
+     * @param string $testMessage The message for testing the requirement (when null and $evaluation is a boolean a default message is derived)
+     * @param string $helpHtml The help text formatted in HTML for resolving the problem (when null and $evaluation is a boolean a default help is derived)
+     * @param string|null $helpText The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
      */
-    public function addPhpIniRequirement($cfgName, $evaluation, $approveCfgAbsence = false, $testMessage = null, $helpHtml = null, $helpText = null)
-    {
-        $this->add(new PhpIniRequirement($cfgName, $evaluation, $approveCfgAbsence, $testMessage, $helpHtml, $helpText, false));
+    public function addPhpIniRequirement(
+        $cfgName,
+        $evaluation,
+        $approveCfgAbsence = false,
+        $testMessage = null,
+        $helpHtml = null,
+        $helpText = null
+    ) {
+        $this->add(new PhpIniRequirement($cfgName, $evaluation, $approveCfgAbsence, $testMessage, $helpHtml, $helpText,
+            false));
     }
 
     /**
      * Adds an optional recommendation in form of a php.ini configuration.
      *
-     * @param string        $cfgName           The configuration name used for ini_get()
-     * @param bool|callback $evaluation        Either a boolean indicating whether the configuration should evaluate to true or false,
+     * @param string $cfgName The configuration name used for ini_get()
+     * @param bool|callback $evaluation Either a boolean indicating whether the configuration should evaluate to true or false,
      *                                         or a callback function receiving the configuration value as parameter to determine the fulfillment of the requirement
-     * @param bool          $approveCfgAbsence If true the Requirement will be fulfilled even if the configuration option does not exist, i.e. ini_get() returns false.
+     * @param bool $approveCfgAbsence If true the Requirement will be fulfilled even if the configuration option does not exist, i.e. ini_get() returns false.
      *                                         This is helpful for abandoned configs in later PHP versions or configs of an optional extension, like Suhosin.
      *                                         Example: You require a config to be true but PHP later removes this config and defaults it to true internally.
-     * @param string        $testMessage       The message for testing the requirement (when null and $evaluation is a boolean a default message is derived)
-     * @param string        $helpHtml          The help text formatted in HTML for resolving the problem (when null and $evaluation is a boolean a default help is derived)
-     * @param string|null   $helpText          The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
+     * @param string $testMessage The message for testing the requirement (when null and $evaluation is a boolean a default message is derived)
+     * @param string $helpHtml The help text formatted in HTML for resolving the problem (when null and $evaluation is a boolean a default help is derived)
+     * @param string|null $helpText The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
      */
-    public function addPhpIniRecommendation($cfgName, $evaluation, $approveCfgAbsence = false, $testMessage = null, $helpHtml = null, $helpText = null)
-    {
-        $this->add(new PhpIniRequirement($cfgName, $evaluation, $approveCfgAbsence, $testMessage, $helpHtml, $helpText, true));
+    public function addPhpIniRecommendation(
+        $cfgName,
+        $evaluation,
+        $approveCfgAbsence = false,
+        $testMessage = null,
+        $helpHtml = null,
+        $helpText = null
+    ) {
+        $this->add(new PhpIniRequirement($cfgName, $evaluation, $approveCfgAbsence, $testMessage, $helpHtml, $helpText,
+            true));
     }
 
     /**
@@ -393,7 +415,8 @@ class SymfonyRequirements extends RequirementCollection
             sprintf('You are running PHP version "<strong>%s</strong>", but Symfony needs at least PHP "<strong>%s</strong>" to run.
                 Before using Symfony, upgrade your PHP installation, preferably to the latest version.',
                 $installedPhpVersion, self::REQUIRED_PHP_VERSION),
-            sprintf('Install PHP %s or newer (installed version is %s)', self::REQUIRED_PHP_VERSION, $installedPhpVersion)
+            sprintf('Install PHP %s or newer (installed version is %s)', self::REQUIRED_PHP_VERSION,
+                $installedPhpVersion)
         );
 
         $this->addRequirement(
@@ -406,7 +429,7 @@ class SymfonyRequirements extends RequirementCollection
             is_dir(__DIR__.'/../vendor/composer'),
             'Vendor libraries must be installed',
             'Vendor libraries are missing. Install composer following instructions from <a href="http://getcomposer.org/">http://getcomposer.org/</a>. '.
-                'Then run "<strong>php composer.phar install</strong>" to install them.'
+            'Then run "<strong>php composer.phar install</strong>" to install them.'
         );
 
         $cacheDir = is_dir(__DIR__.'/../var/cache') ? __DIR__.'/../var/cache' : __DIR__.'/cache';
@@ -443,7 +466,8 @@ class SymfonyRequirements extends RequirementCollection
 
             $this->addRequirement(
                 isset($timezones[@date_default_timezone_get()]),
-                sprintf('Configured default timezone "%s" must be supported by your installation of PHP', @date_default_timezone_get()),
+                sprintf('Configured default timezone "%s" must be supported by your installation of PHP',
+                    @date_default_timezone_get()),
                 'Your default timezone is not supported by PHP. Check for typos in your <strong>php.ini</strong> file and have a look at the list of deprecated timezones at <a href="http://php.net/manual/en/timezones.others.php">http://php.net/manual/en/timezones.others.php</a>.'
             );
         }
@@ -530,7 +554,7 @@ class SymfonyRequirements extends RequirementCollection
             );
         }
 
-        $pcreVersion = defined('PCRE_VERSION') ? (float) PCRE_VERSION : null;
+        $pcreVersion = defined('PCRE_VERSION') ? (float)PCRE_VERSION : null;
 
         $this->addRequirement(
             null !== $pcreVersion,
@@ -592,7 +616,8 @@ class SymfonyRequirements extends RequirementCollection
         );
 
         $this->addRecommendation(
-            (version_compare($installedPhpVersion, '5.3.18', '>=') && version_compare($installedPhpVersion, '5.4.0', '<'))
+            (version_compare($installedPhpVersion, '5.3.18', '>=') && version_compare($installedPhpVersion, '5.4.0',
+                    '<'))
             ||
             version_compare($installedPhpVersion, '5.4.8', '>='),
             'You should use PHP 5.3.18+ or PHP 5.4.8+ to always get nice error messages for fatal errors in the development environment due to PHP bug #61767/#60909',
@@ -682,13 +707,17 @@ class SymfonyRequirements extends RequirementCollection
             if (class_exists('Symfony\Component\Intl\Intl')) {
                 $this->addRecommendation(
                     \Symfony\Component\Intl\Intl::getIcuDataVersion() <= \Symfony\Component\Intl\Intl::getIcuVersion(),
-                    sprintf('intl ICU version installed on your system is outdated (%s) and does not match the ICU data bundled with Symfony (%s)', \Symfony\Component\Intl\Intl::getIcuVersion(), \Symfony\Component\Intl\Intl::getIcuDataVersion()),
+                    sprintf('intl ICU version installed on your system is outdated (%s) and does not match the ICU data bundled with Symfony (%s)',
+                        \Symfony\Component\Intl\Intl::getIcuVersion(),
+                        \Symfony\Component\Intl\Intl::getIcuDataVersion()),
                     'To get the latest internationalization data upgrade the ICU system package and the intl PHP extension.'
                 );
                 if (\Symfony\Component\Intl\Intl::getIcuDataVersion() <= \Symfony\Component\Intl\Intl::getIcuVersion()) {
                     $this->addRecommendation(
                         \Symfony\Component\Intl\Intl::getIcuDataVersion() === \Symfony\Component\Intl\Intl::getIcuVersion(),
-                        sprintf('intl ICU version installed on your system (%s) does not match the ICU data bundled with Symfony (%s)', \Symfony\Component\Intl\Intl::getIcuVersion(), \Symfony\Component\Intl\Intl::getIcuDataVersion()),
+                        sprintf('intl ICU version installed on your system (%s) does not match the ICU data bundled with Symfony (%s)',
+                            \Symfony\Component\Intl\Intl::getIcuVersion(),
+                            \Symfony\Component\Intl\Intl::getIcuDataVersion()),
                         'To avoid internationalization data incosistencies upgrade the symfony/intl component.'
                     );
                 }
@@ -714,8 +743,7 @@ class SymfonyRequirements extends RequirementCollection
             ||
             (extension_loaded('xcache') && ini_get('xcache.cacher'))
             ||
-            (extension_loaded('wincache') && ini_get('wincache.ocenabled'))
-        ;
+            (extension_loaded('wincache') && ini_get('wincache.ocenabled'));
 
         $this->addRecommendation(
             $accelerator,
@@ -749,7 +777,8 @@ class SymfonyRequirements extends RequirementCollection
             $drivers = PDO::getAvailableDrivers();
             $this->addRecommendation(
                 count($drivers) > 0,
-                sprintf('PDO should have some drivers installed (currently available: %s)', count($drivers) ? implode(', ', $drivers) : 'none'),
+                sprintf('PDO should have some drivers installed (currently available: %s)',
+                    count($drivers) ? implode(', ', $drivers) : 'none'),
                 'Install <strong>PDO drivers</strong> (mandatory for Doctrine).'
             );
         }
@@ -775,7 +804,7 @@ class SymfonyRequirements extends RequirementCollection
             case 'k':
                 return $size * 1024;
             default:
-                return (int) $size;
+                return (int)$size;
         }
     }
 }

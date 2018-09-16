@@ -21,8 +21,8 @@ class SearchLog
      * @var string
      */
     private $query;
-	
-	/**
+
+    /**
      * @var string
      */
     private $result;
@@ -85,8 +85,8 @@ class SearchLog
     {
         return $this->query;
     }
-	
-	/**
+
+    /**
      * Set result
      *
      * @param string $result
