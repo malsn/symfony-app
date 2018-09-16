@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Добро пожаловать!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+		<link rel="stylesheet" href="bundles/app/css/style.d9d05b297cdfa83da398.css?cadf46ab5f9f70d8255e">
+    </head>
+    <body>
+		<div id="root"></div>
+        {% block body %}{% endblock %}		
+		<script src="bundles/app/js/main.2c9f8cddbd09af660d3e.js?cadf46ab5f9f70d8255e"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
