@@ -112,6 +112,7 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $building_node_attributes = $building_node->attributes();
                 $building = new Plus78Building();
                 $building->setXmlid($building_node_attributes['id']);
+                $building->setBlockid(new Plus78Block($building_node_attributes['blockid']));
                 $building->setName($building_node_attributes['corp']);
                 $em->persist($building);
                 $em->flush();
@@ -122,8 +123,8 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $apartment = new Plus78Apartment();
                 $apartment->setXmlId($apartment_node_attributes['id']);
                 $apartment->setBaseflatcost($apartment_node_attributes['baseflatcost']);
-                $apartment->setBlockid($apartment_node_attributes['blockid']);
-                $apartment->setBuildingid($apartment_node_attributes['buildingid']);
+                $apartment->setBlockid(new Plus78Block($apartment_node_attributes['blockid']));
+                $apartment->setBuildingid(new Plus78Building($apartment_node_attributes['buildingid']));
                 $apartment->setRooms($apartment_node_attributes['rooms']);
                 $apartment->setFlattypeid($apartment_node_attributes['flattypeid']);
                 $em->persist($apartment);
