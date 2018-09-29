@@ -77,5 +77,7 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
         $manager = $this->getDoctrine()->getManager();
         $stmt = $manager->getConnection()->prepare($sql);
         $stmt->execute();
+
+        return new Response("Data loaded");
     }
 }
