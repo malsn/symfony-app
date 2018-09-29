@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\SearchLog as SearchLog;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class DefaultController extends Controller
 {
@@ -52,5 +53,29 @@ class DefaultController extends Controller
         $response->headers->set("Access-Control-Allow-Origin", "*");
 
         return $response;
+    }
+
+    /**
+     * @Route("/load_plus78", name="load_plus78")
+     */
+    public function loadPlus78Action()
+    {
+        $file = $_SERVER['DOCUMENT_ROOT'].'/plus78/SiteData.xml';
+        $ch = curl_init();
+        $url = "http://test.plus78.ru/xml/SiteData.xml";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,
+            array('Content-type: application/xml')); // Assuming you're requesting XML
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($ch);
+        $f = fopen($file, 'w');
+        fwrite($f, $response);
+        fclose($f);
+
+        $sql = "use myproject;
+LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO TABLE plus78apartment ROWS IDENTIFIED BY '<Apartment>';";
+        $manager = $this->getDoctrine()->getManager();
+        $stmt = $manager->getConnection()->prepare($sql);
+        $stmt->execute();
     }
 }
