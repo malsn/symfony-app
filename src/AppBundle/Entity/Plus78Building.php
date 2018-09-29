@@ -18,7 +18,7 @@ class Plus78Building
     private $xmlid;
 
     /**
-     * @var int
+     * @var Plus78Block
      */
     private $blockid;
 
@@ -55,7 +55,7 @@ class Plus78Building
     }
 
     /**
-     * @return int
+     * @return Plus78Block
      */
     public function getBlockid()
     {
@@ -63,7 +63,7 @@ class Plus78Building
     }
 
     /**
-     * @param int $blockid
+     * @param Plus78Block $blockid
      */
     public function setBlockid($blockid)
     {

@@ -18,12 +18,12 @@ class Plus78Apartment
     private $xmlid;
 
     /**
-     * @var int
+     * @var Plus78Block
      */
     private $blockid;
 
     /**
-     * @var int
+     * @var Plus78Building
      */
     private $buildingid;
 
@@ -150,23 +150,7 @@ class Plus78Apartment
     }
 
     /**
-     * Set blockid
-     *
-     * @param integer $blockid
-     *
-     * @return Plus78Apartment
-     */
-    public function setBlockid($blockid)
-    {
-        $this->blockid = $blockid;
-
-        return $this;
-    }
-
-    /**
-     * Get blockid
-     *
-     * @return int
+     * @return Plus78Block
      */
     public function getBlockid()
     {
@@ -174,28 +158,29 @@ class Plus78Apartment
     }
 
     /**
-     * Set buildingid
-     *
-     * @param integer $buildingid
-     *
-     * @return Plus78Apartment
+     * @param Plus78Block $blockid
      */
-    public function setBuildingid($buildingid)
+    public function setBlockid($blockid)
     {
-        $this->buildingid = $buildingid;
-
-        return $this;
+        $this->blockid = $blockid;
     }
 
     /**
-     * Get buildingid
-     *
-     * @return int
+     * @return Plus78Building
      */
     public function getBuildingid()
     {
         return $this->buildingid;
     }
+
+    /**
+     * @param Plus78Building $buildingid
+     */
+    public function setBuildingid($buildingid)
+    {
+        $this->buildingid = $buildingid;
+    }
+
 
     /**
      * Set section
