@@ -79,12 +79,7 @@ class DefaultController extends Controller
 
         $xml = new \XMLReader();
         $xml->open($file);
-        $em = $this->getDoctrine()->getManager();
-        $this->block2DB($xml, $em);
-        $em = $this->getDoctrine()->getManager();
-        $this->building2DB($xml, $em);
-        $em = $this->getDoctrine()->getManager();
-        $this->apartment2DB($xml, $em);
+        $this->xml2DB($xml, $em);
         $xml->close();
 
         /* for MySQL 6+
@@ -98,10 +93,29 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
         return new Response("Data loaded");
     }
 
-    protected function apartment2DB($xml, ObjectManager $em)
+    protected function xml2DB($xml, ObjectManager $em)
     {
+        $em = $this->getDoctrine()->getManager();
         while ($xml->read()) {
-            if ($xml->name == 'Apartment') {
+            if ($xml->name == 'Block') {
+                $doc = new \DOMDocument();
+                $block_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
+                $block_node_attributes = $block_node->attributes();
+                $block = new Plus78Block();
+                $block->setXmlid($block_node_attributes['id']);
+                $block->setName($block_node_attributes['title']);
+                $em->persist($block);
+                $em->flush();
+            } elseif ($xml->name == 'Building') {
+                $doc = new \DOMDocument();
+                $building_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
+                $building_node_attributes = $building_node->attributes();
+                $building = new Plus78Building();
+                $building->setXmlid($building_node_attributes['id']);
+                $building->setName($building_node_attributes['corp']);
+                $em->persist($building);
+                $em->flush();
+            } elseif ($xml->name == 'Apartment') {
                 $doc = new \DOMDocument();
                 $apartment_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
                 $apartment_node_attributes = $apartment_node->attributes();
@@ -113,38 +127,6 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $apartment->setRooms($apartment_node_attributes['rooms']);
                 $apartment->setFlattypeid($apartment_node_attributes['flattypeid']);
                 $em->persist($apartment);
-                $em->flush();
-            }
-        }
-    }
-
-    protected function block2DB($xml, ObjectManager $em)
-    {
-        while ($xml->read()) {
-            if ($xml->name == 'Block') {
-                $doc = new \DOMDocument();
-                $block_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
-                $block_node_attributes = $block_node->attributes();
-                $block = new Plus78Block();
-                $block->setXmlid($block_node_attributes['id']);
-                $block->setName($block_node_attributes['title']);
-                $em->persist($block);
-                $em->flush();
-            }
-        }
-    }
-
-    protected function building2DB($xml, ObjectManager $em)
-    {
-        while ($xml->read()) {
-            if ($xml->name == 'Building') {
-                $doc = new \DOMDocument();
-                $building_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
-                $building_node_attributes = $building_node->attributes();
-                $building = new Plus78Building();
-                $building->setXmlid($building_node_attributes['id']);
-                $building->setName($building_node_attributes['corp']);
-                $em->persist($building);
                 $em->flush();
             }
         }
