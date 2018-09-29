@@ -94,13 +94,14 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
             if ($xml->name == 'Apartment') {
                 $doc = new \DOMDocument();
                 $apartment_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
+                $apartment_node_attributes = $apartment_node->attributes();
                 $apartment = new Plus78Apartment();
-                $apartment->setXmlId($apartment_node->id);
-                $apartment->setBaseflatcost($apartment_node->baseflatcost);
-                $apartment->setBlockid($apartment_node->blockid);
-                $apartment->setBuildingid($apartment_node->buildingid);
-                $apartment->setRooms($apartment_node->rooms);
-                $apartment->setFlattypeid($apartment_node->flattypeid);
+                $apartment->setXmlId($apartment_node_attributes['id']);
+                $apartment->setBaseflatcost($apartment_node_attributes['baseflatcost']);
+                $apartment->setBlockid($apartment_node_attributes['blockid']);
+                $apartment->setBuildingid($apartment_node_attributes['buildingid']);
+                $apartment->setRooms($apartment_node_attributes['rooms']);
+                $apartment->setFlattypeid($apartment_node_attributes['flattypeid']);
                 $em->persist($apartment);
                 $em->flush();
             }
