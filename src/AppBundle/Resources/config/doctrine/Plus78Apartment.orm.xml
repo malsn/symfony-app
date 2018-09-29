@@ -5,8 +5,8 @@
       <generator strategy="AUTO"/>
     </id>
     <field name="xmlid" type="integer" column="xmlid" nullable="false" unique="true"/>
-    <field name="blockid" type="integer" column="blockid" nullable="true"/>
-    <field name="buildingid" type="integer" column="buildingid" nullable="true"/>
+    <!--<field name="blockid" type="integer" column="blockid" nullable="true"/>
+    <field name="buildingid" type="integer" column="buildingid" nullable="true"/>-->
     <field name="section" type="integer" column="section" nullable="true"/>
     <field name="rooms" type="integer" column="rooms" nullable="true"/>
     <field name="stotal" type="float" column="stotal" nullable="true"/>
