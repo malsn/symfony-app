@@ -2,13 +2,14 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Plus78Apartment;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\SearchLog as SearchLog;
-use Doctrine\Common\Persistence\ObjectManager;
+//use Doctrine\Common\Persistence\ObjectManager;
 
 class DefaultController extends Controller
 {
@@ -72,12 +73,37 @@ class DefaultController extends Controller
         fwrite($f, $response);
         fclose($f);
 
-        $sql = "use myproject;
+        $xml = new \XMLReader();
+        $xml->open($file);
+        $this->xml2DB($xml);
+        $xml->close();
+
+        /*$sql = "use myproject;
 LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO TABLE plus78apartment ROWS IDENTIFIED BY '<Apartment>';";
         $manager = $this->getDoctrine()->getManager();
         $stmt = $manager->getConnection()->prepare($sql);
-        $stmt->execute();
+        $stmt->execute();*/
 
         return new Response("Data loaded");
+    }
+
+    protected function xml2DB($xml)
+    {
+        $em = $this->getDoctrine()->getManager();
+        while ($xml->read()) {
+            if ($xml->name == 'Apartment') {
+                $doc = new \DOMDocument();
+                $apartment_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
+                $apartment = new Plus78Apartment();
+                $apartment->setXmlId($apartment_node->id);
+                $apartment->setBaseflatcost($apartment_node->baseflatcost);
+                $apartment->setBlockid($apartment_node->blockid);
+                $apartment->setBuildingid($apartment_node->buildingid);
+                $apartment->setRooms($apartment_node->rooms);
+                $apartment->setFlattypeid($apartment_node->flattypeid);
+                $em->persist($apartment);
+                $em->flush();
+            }
+        }
     }
 }

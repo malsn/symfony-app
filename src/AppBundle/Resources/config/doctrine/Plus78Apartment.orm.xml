@@ -4,26 +4,27 @@
     <id name="id" type="integer" column="id">
       <generator strategy="AUTO"/>
     </id>
-    <field name="blockid" type="integer" column="blockid"/>
-    <field name="buildingid" type="integer" column="buildingid"/>
-    <field name="section" type="integer" column="section"/>
-    <field name="rooms" type="integer" column="rooms"/>
-    <field name="stotal" type="float" column="stotal"/>
-    <field name="sroom" type="float" column="sroom"/>
-    <field name="skitchen" type="float" column="skitchen"/>
-    <field name="sbalcony" type="float" column="sbalcony"/>
-    <field name="scorridor" type="float" column="scorridor"/>
-    <field name="swatercloset" type="string" column="swatercloset" length="255"/>
-    <field name="height" type="float" column="height"/>
+    <field name="xmlid" type="integer" column="xmlid" nullable="true"/>
+    <field name="blockid" type="integer" column="blockid" nullable="true"/>
+    <field name="buildingid" type="integer" column="buildingid" nullable="true"/>
+    <field name="section" type="integer" column="section" nullable="true"/>
+    <field name="rooms" type="integer" column="rooms" nullable="true"/>
+    <field name="stotal" type="float" column="stotal" nullable="true"/>
+    <field name="sroom" type="float" column="sroom" nullable="true"/>
+    <field name="skitchen" type="float" column="skitchen" nullable="true"/>
+    <field name="sbalcony" type="float" column="sbalcony" nullable="true"/>
+    <field name="scorridor" type="float" column="scorridor" nullable="true"/>
+    <field name="swatercloset" type="string" column="swatercloset" length="255" nullable="true"/>
+    <field name="height" type="float" column="height" nullable="true"/>
     <field name="flattypeid" type="integer" column="flattypeid"/>
-    <field name="decoration" type="string" column="decoration" length="255"/>
-    <field name="susidy" type="integer" column="susidy"/>
-    <field name="creditend" type="integer" column="creditend"/>
-    <field name="flatcostwithdiscounts" type="integer" column="flatcostwithdiscounts"/>
-    <field name="baseflatcost" type="integer" column="baseflatcost"/>
-    <field name="flatfloor" type="integer" column="flatfloor"/>
-    <field name="dateadded" type="string" column="dateadded" length="255"/>
-    <field name="datemodified" type="string" column="datemodified" length="255"/>
-    <field name="flatplan" type="string" column="flatplan" length="255"/>
+    <field name="decoration" type="string" column="decoration" length="255" nullable="true"/>
+    <field name="susidy" type="integer" column="susidy" nullable="true"/>
+    <field name="creditend" type="integer" column="creditend" nullable="true"/>
+    <field name="flatcostwithdiscounts" type="integer" column="flatcostwithdiscounts" nullable="true"/>
+    <field name="baseflatcost" type="integer" column="baseflatcost" nullable="true"/>
+    <field name="flatfloor" type="integer" column="flatfloor" nullable="true"/>
+    <field name="dateadded" type="string" column="dateadded" length="255" nullable="true"/>
+    <field name="datemodified" type="string" column="datemodified" length="255" nullable="true"/>
+    <field name="flatplan" type="string" column="flatplan" length="255" nullable="true"/>
   </entity>
 </doctrine-mapping>

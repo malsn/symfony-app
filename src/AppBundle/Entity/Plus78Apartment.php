@@ -15,6 +15,11 @@ class Plus78Apartment
     /**
      * @var int
      */
+    private $xmlid;
+
+    /**
+     * @var int
+     */
     private $blockid;
 
     /**
@@ -126,6 +131,22 @@ class Plus78Apartment
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getXmlId()
+    {
+        return $this->xmlid;
+    }
+
+    /**
+     * @param int $xmlid
+     */
+    public function setXmlId($xmlid)
+    {
+        $this->xmlid = $xmlid;
     }
 
     /**
