@@ -26,9 +26,11 @@
     <field name="flatplan" type="string" column="flatplan" length="255" nullable="true"/>
     <many-to-one target-entity="Plus78Block" field="blockid">
       <join-column name="blockid" referenced-column-name="xmlid" />
+      <cascade><cascade-persist/></cascade>
     </many-to-one>
     <many-to-one target-entity="Plus78Building" field="buildingid">
       <join-column name="buildingid" referenced-column-name="xmlid" />
+      <cascade><cascade-persist/></cascade>
     </many-to-one>
   </entity>
 </doctrine-mapping>

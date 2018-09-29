@@ -8,6 +8,7 @@
     <field name="name" type="string" column="name" length="255"/>
     <many-to-one target-entity="Plus78Block" field="blockid">
       <join-column name="blockid" referenced-column-name="xmlid" />
+      <cascade><cascade-persist/></cascade>
     </many-to-one>
   </entity>
 </doctrine-mapping>
