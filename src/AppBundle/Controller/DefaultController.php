@@ -79,7 +79,7 @@ class DefaultController extends Controller
 
         $xml = new \XMLReader();
         $xml->open($file);
-        $this->xml2DB($xml, $em);
+        $this->xml2DB($xml);
         $xml->close();
 
         /* for MySQL 6+
@@ -93,7 +93,7 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
         return new Response("Data loaded");
     }
 
-    protected function xml2DB($xml, ObjectManager $em)
+    protected function xml2DB($xml)
     {
         $em = $this->getDoctrine()->getManager();
         while ($xml->read()) {
