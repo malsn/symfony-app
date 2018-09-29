@@ -4,8 +4,26 @@
     <id name="id" type="integer" column="id">
       <generator strategy="AUTO"/>
     </id>
-    <field name="flatRooms" type="integer" column="flat_rooms"/>
-    <field name="price" type="integer" column="price"/>
-    <field name="building" type="integer" column="building"/>
+    <field name="blockid" type="integer" column="blockid"/>
+    <field name="buildingid" type="integer" column="buildingid"/>
+    <field name="section" type="integer" column="section"/>
+    <field name="rooms" type="integer" column="rooms"/>
+    <field name="stotal" type="float" column="stotal"/>
+    <field name="sroom" type="float" column="sroom"/>
+    <field name="skitchen" type="float" column="skitchen"/>
+    <field name="sbalcony" type="float" column="sbalcony"/>
+    <field name="scorridor" type="float" column="scorridor"/>
+    <field name="swatercloset" type="string" column="swatercloset" length="255"/>
+    <field name="height" type="float" column="height"/>
+    <field name="flattypeid" type="integer" column="flattypeid"/>
+    <field name="decoration" type="string" column="decoration" length="255"/>
+    <field name="susidy" type="integer" column="susidy"/>
+    <field name="creditend" type="integer" column="creditend"/>
+    <field name="flatcostwithdiscounts" type="integer" column="flatcostwithdiscounts"/>
+    <field name="baseflatcost" type="integer" column="baseflatcost"/>
+    <field name="flatfloor" type="integer" column="flatfloor"/>
+    <field name="dateadded" type="string" column="dateadded" length="255"/>
+    <field name="datemodified" type="string" column="datemodified" length="255"/>
+    <field name="flatplan" type="string" column="flatplan" length="255"/>
   </entity>
 </doctrine-mapping>
