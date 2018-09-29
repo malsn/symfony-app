@@ -81,7 +81,9 @@ class DefaultController extends Controller
         $xml->open($file);
         $em = $this->getDoctrine()->getManager();
         $this->block2DB($xml, $em);
+        $em = $this->getDoctrine()->getManager();
         $this->building2DB($xml, $em);
+        $em = $this->getDoctrine()->getManager();
         $this->apartment2DB($xml, $em);
         $xml->close();
 
