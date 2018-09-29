@@ -3,13 +3,15 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Plus78Apartment;
+use AppBundle\Entity\Plus78Block;
+use AppBundle\Entity\Plus78Building;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\SearchLog as SearchLog;
-//use Doctrine\Common\Persistence\ObjectManager;
 
 class DefaultController extends Controller
 {
@@ -61,7 +63,7 @@ class DefaultController extends Controller
      */
     public function loadPlus78Action()
     {
-        ini_set("max_execution_time", "60");
+        ini_set("max_execution_time", "600");
 
         $file = $_SERVER['DOCUMENT_ROOT'].'/plus78/SiteData.xml';
         $ch = curl_init();
@@ -77,21 +79,25 @@ class DefaultController extends Controller
 
         $xml = new \XMLReader();
         $xml->open($file);
-        $this->xml2DB($xml);
+        $em = $this->getDoctrine()->getManager();
+        $this->block2DB($xml, $em);
+        $this->building2DB($xml, $em);
+        $this->apartment2DB($xml, $em);
         $xml->close();
 
-        /*$sql = "use myproject;
+        /* for MySQL 6+
+        $sql = "use myproject;
 LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO TABLE plus78apartment ROWS IDENTIFIED BY '<Apartment>';";
         $manager = $this->getDoctrine()->getManager();
         $stmt = $manager->getConnection()->prepare($sql);
-        $stmt->execute();*/
+        $stmt->execute();
+        */
 
         return new Response("Data loaded");
     }
 
-    protected function xml2DB($xml)
+    protected function apartment2DB($xml, ObjectManager $em)
     {
-        $em = $this->getDoctrine()->getManager();
         while ($xml->read()) {
             if ($xml->name == 'Apartment') {
                 $doc = new \DOMDocument();
@@ -105,6 +111,38 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $apartment->setRooms($apartment_node_attributes['rooms']);
                 $apartment->setFlattypeid($apartment_node_attributes['flattypeid']);
                 $em->persist($apartment);
+                $em->flush();
+            }
+        }
+    }
+
+    protected function block2DB($xml, ObjectManager $em)
+    {
+        while ($xml->read()) {
+            if ($xml->name == 'Block') {
+                $doc = new \DOMDocument();
+                $block_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
+                $block_node_attributes = $block_node->attributes();
+                $block = new Plus78Block();
+                $block->setXmlid($block_node_attributes['id']);
+                $block->setName($block_node_attributes['title']);
+                $em->persist($block);
+                $em->flush();
+            }
+        }
+    }
+
+    protected function building2DB($xml, ObjectManager $em)
+    {
+        while ($xml->read()) {
+            if ($xml->name == 'Building') {
+                $doc = new \DOMDocument();
+                $building_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
+                $building_node_attributes = $building_node->attributes();
+                $building = new Plus78Building();
+                $building->setXmlid($building_node_attributes['id']);
+                $building->setName($building_node_attributes['corp']);
+                $em->persist($building);
                 $em->flush();
             }
         }

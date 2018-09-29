@@ -4,7 +4,7 @@
     <id name="id" type="integer" column="id">
       <generator strategy="AUTO"/>
     </id>
-    <field name="xmlid" type="integer" column="xmlid" nullable="true"/>
+    <field name="xmlid" type="integer" column="xmlid" nullable="false" unique="true"/>
     <field name="blockid" type="integer" column="blockid" nullable="true"/>
     <field name="buildingid" type="integer" column="buildingid" nullable="true"/>
     <field name="section" type="integer" column="section" nullable="true"/>
@@ -26,5 +26,7 @@
     <field name="dateadded" type="string" column="dateadded" length="255" nullable="true"/>
     <field name="datemodified" type="string" column="datemodified" length="255" nullable="true"/>
     <field name="flatplan" type="string" column="flatplan" length="255" nullable="true"/>
+    <many-to-one target-entity="AppBundle\Entity\Plus78Block" field="blockid" inversed-by="xmlid"></many-to-one>
+    <many-to-one target-entity="AppBundle\Entity\Plus78Building" field="buildingid" inversed-by="xmlid"></many-to-one>
   </entity>
 </doctrine-mapping>

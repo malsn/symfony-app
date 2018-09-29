@@ -13,6 +13,11 @@ class Plus78Block
     private $id;
 
     /**
+     * @var int
+     */
+    private $xmlid;
+
+    /**
      * @var string
      */
     private $name;
@@ -26,6 +31,22 @@ class Plus78Block
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getXmlid()
+    {
+        return $this->xmlid;
+    }
+
+    /**
+     * @param int $xmlid
+     */
+    public function setXmlid($xmlid)
+    {
+        $this->xmlid = $xmlid;
     }
 
     /**

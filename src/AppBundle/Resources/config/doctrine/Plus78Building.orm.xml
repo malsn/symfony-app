@@ -4,6 +4,9 @@
     <id name="id" type="integer" column="id">
       <generator strategy="AUTO"/>
     </id>
+    <field name="xmlid" type="integer" column="xmlid" nullable="false" unique="true"/>
+    <field name="blockid" type="integer" column="blockid" nullable="false"/>
     <field name="name" type="string" column="name" length="255"/>
+    <many-to-one target-entity="AppBundle\Entity\Plus78Block" field="blockid" inversed-by="xmlid"></many-to-one>
   </entity>
 </doctrine-mapping>
