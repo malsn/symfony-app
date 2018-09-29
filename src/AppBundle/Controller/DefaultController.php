@@ -61,6 +61,8 @@ class DefaultController extends Controller
      */
     public function loadPlus78Action()
     {
+        ini_set("max_execution_time", "60");
+
         $file = $_SERVER['DOCUMENT_ROOT'].'/plus78/SiteData.xml';
         $ch = curl_init();
         $url = "http://test.plus78.ru/xml/SiteData.xml";
