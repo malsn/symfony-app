@@ -4,10 +4,11 @@
     <id name="id" type="integer" column="id">
       <generator strategy="AUTO"/>
     </id>
-    <field name="xmlid" type="integer" column="xmlid" nullable="false" unique="true"/>
+    <field name="xml" type="integer" column="xml_id" nullable="false" unique="true"/>
     <field name="name" type="string" column="name" length="255"/>
-    <many-to-one field="blockid" target-entity="Plus78Block">
+    <!--<many-to-one target-entity="AppBundle\Entity\Plus78Block" field="blockid">
       <join-column name="blockid" referenced-column-name="xmlid" />
-    </many-to-one>
+      <cascade><cascade-persist/></cascade>
+    </many-to-one>-->
   </entity>
 </doctrine-mapping>
