@@ -18,12 +18,12 @@ class Plus78Apartment
     private $xml;
 
     /**
-     * @var Plus78Block
+     * @var int
      */
     private $block;
 
     /**
-     * @var Plus78Building
+     * @var int
      */
     private $building;
 
@@ -150,7 +150,7 @@ class Plus78Apartment
     }
 
     /**
-     * @return Plus78Block
+     * @return int
      */
     public function getBlock()
     {
@@ -158,7 +158,7 @@ class Plus78Apartment
     }
 
     /**
-     * @param Plus78Block $block
+     * @param int $block
      */
     public function setBlock($block)
     {
@@ -166,7 +166,7 @@ class Plus78Apartment
     }
 
     /**
-     * @return Plus78Building
+     * @return int
      */
     public function getBuilding()
     {
@@ -174,7 +174,7 @@ class Plus78Apartment
     }
 
     /**
-     * @param Plus78Building $building
+     * @param int $building
      */
     public function setBuilding($building)
     {

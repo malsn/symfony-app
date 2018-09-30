@@ -5,6 +5,8 @@
       <generator strategy="AUTO"/>
     </id>
     <field name="xml" type="integer" column="xml_id" nullable="false" unique="true"/>
+    <field name="block" type="integer" column="block_id" nullable="false"/>
+    <field name="building" type="integer" column="building_id" nullable="false"/>
     <field name="section" type="integer" column="section" nullable="true"/>
     <field name="rooms" type="integer" column="rooms" nullable="true"/>
     <field name="stotal" type="float" column="stotal" nullable="true"/>
@@ -24,11 +26,5 @@
     <field name="dateadded" type="string" column="dateadded" length="255" nullable="true"/>
     <field name="datemodified" type="string" column="datemodified" length="255" nullable="true"/>
     <field name="flatplan" type="string" column="flatplan" length="255" nullable="true"/>
-    <many-to-one target-entity="Plus78Block" field="block">
-      <join-column name="block_id" referenced-column-name="xml_id" />
-    </many-to-one>
-    <many-to-one target-entity="Plus78Building" field="building">
-      <join-column name="building_id" referenced-column-name="xml_id" />
-    </many-to-one>
   </entity>
 </doctrine-mapping>
