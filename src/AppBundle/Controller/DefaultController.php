@@ -101,7 +101,10 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $doc = new \DOMDocument();
                 $block_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
                 $block_node_attributes = $block_node->attributes();
-                $block = new Plus78Block();
+                $block = $em->getRepository(Plus78Block::class)->findOneBy(["xml" => $block_node_attributes['id']]);
+                if (!$block){
+                    $block = new Plus78Block();
+                }
                 $block->setXml($block_node_attributes['id']);
                 $block->setName($block_node_attributes['title']);
                 $em->persist($block);
@@ -110,7 +113,10 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $doc = new \DOMDocument();
                 $building_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
                 $building_node_attributes = $building_node->attributes();
-                $building = new Plus78Building();
+                $building = $em->getRepository(Plus78Building::class)->findOneBy(["xml" => $building_node_attributes['id']]);
+                if (!$building){
+                    $building = new Plus78Building();
+                }
                 $building->setXml($building_node_attributes['id']);
                 $building->setBlock($building_node_attributes['blockid']);
                 $building->setName($building_node_attributes['corp']);
@@ -120,7 +126,10 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $doc = new \DOMDocument();
                 $apartment_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
                 $apartment_node_attributes = $apartment_node->attributes();
-                $apartment = new Plus78Apartment();
+                $apartment = $em->getRepository(Plus78Apartment::class)->findOneBy(["xml"=> $apartment_node_attributes['id']]);
+                if (!$apartment){
+                    $apartment = new Plus78Apartment();
+                }
                 $apartment->setXml($apartment_node_attributes['id']);
                 $apartment->setBaseflatcost($apartment_node_attributes['baseflatcost']);
                 $apartment->setBlock($apartment_node_attributes['blockid']);
