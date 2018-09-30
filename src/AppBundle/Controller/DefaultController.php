@@ -111,8 +111,8 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $building_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
                 $building_node_attributes = $building_node->attributes();
                 $building = new Plus78Building();
-                $building->setXmlid($building_node_attributes['id']);
-                $building->setBlockid(new Plus78Block($building_node_attributes['blockid']));
+                $building->setXml($building_node_attributes['id']);
+                $building->setBlock(new Plus78Block($building_node_attributes['blockid']));
                 $building->setName($building_node_attributes['corp']);
                 $em->persist($building);
                 $em->flush();
