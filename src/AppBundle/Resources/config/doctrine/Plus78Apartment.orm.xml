@@ -25,10 +25,10 @@
     <field name="datemodified" type="string" column="datemodified" length="255" nullable="true"/>
     <field name="flatplan" type="string" column="flatplan" length="255" nullable="true"/>
     <many-to-one target-entity="Plus78Block" field="block">
-      <join-column name="block_id" referenced-column-name="xml" />
+      <join-column name="block_id" referenced-column-name="xml_id" />
     </many-to-one>
     <many-to-one target-entity="Plus78Building" field="building">
-      <join-column name="building_id" referenced-column-name="xml" />
+      <join-column name="building_id" referenced-column-name="xml_id" />
     </many-to-one>
   </entity>
 </doctrine-mapping>
