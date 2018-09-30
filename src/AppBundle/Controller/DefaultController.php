@@ -142,10 +142,10 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                     $apartment->setBuilding($apartment_node_attributes['buildingid']);
                     $apartment->setRooms($apartment_node_attributes['rooms']);
                     $apartment->setFlattypeid($apartment_node_attributes['flattypeid']);
-                    $apartment->setUpdatedAt(new DateTime());
+                    $apartment->setUpdatedAt(new \DateTime());
                     $em->persist($apartment);
                 } else {
-                    $apartment->setUpdatedAt(new DateTime());
+                    $apartment->setUpdatedAt(new \DateTime());
                 }
                 $em->flush();
             }
