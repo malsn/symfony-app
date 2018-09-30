@@ -98,14 +98,14 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
         $em = $this->getDoctrine()->getManager();
         while ($xml->read()) {
             if ($xml->name == 'Block') {
-                /*$doc = new \DOMDocument();
+                $doc = new \DOMDocument();
                 $block_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
                 $block_node_attributes = $block_node->attributes();
                 $block = new Plus78Block();
-                $block->setXmlid($block_node_attributes['id']);
+                $block->setXml($block_node_attributes['id']);
                 $block->setName($block_node_attributes['title']);
                 $em->persist($block);
-                $em->flush();*/
+                $em->flush();
             } elseif ($xml->name == 'Building') {
                 $doc = new \DOMDocument();
                 $building_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
@@ -117,18 +117,18 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $em->persist($building);
                 $em->flush();
             } elseif ($xml->name == 'Apartment') {
-                /*$doc = new \DOMDocument();
+                $doc = new \DOMDocument();
                 $apartment_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
                 $apartment_node_attributes = $apartment_node->attributes();
                 $apartment = new Plus78Apartment();
-                $apartment->setXmlId($apartment_node_attributes['id']);
+                $apartment->setXml($apartment_node_attributes['id']);
                 $apartment->setBaseflatcost($apartment_node_attributes['baseflatcost']);
-                $apartment->setBlockid(new Plus78Block($apartment_node_attributes['blockid']));
-                $apartment->setBuildingid(new Plus78Building($apartment_node_attributes['buildingid']));
+                $apartment->setBlock(new Plus78Block($apartment_node_attributes['blockid']));
+                $apartment->setBuilding(new Plus78Building($apartment_node_attributes['buildingid']));
                 $apartment->setRooms($apartment_node_attributes['rooms']);
                 $apartment->setFlattypeid($apartment_node_attributes['flattypeid']);
                 $em->persist($apartment);
-                $em->flush();*/
+                $em->flush();
             }
         }
     }
