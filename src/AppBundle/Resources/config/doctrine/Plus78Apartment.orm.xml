@@ -4,7 +4,7 @@
     <id name="id" type="integer" column="id">
       <generator strategy="AUTO"/>
     </id>
-    <field name="xmlid" type="integer" column="xmlid" nullable="false" unique="true"/>
+    <field name="xml" type="integer" column="xml_id" nullable="false" unique="true"/>
     <field name="section" type="integer" column="section" nullable="true"/>
     <field name="rooms" type="integer" column="rooms" nullable="true"/>
     <field name="stotal" type="float" column="stotal" nullable="true"/>
@@ -24,11 +24,11 @@
     <field name="dateadded" type="string" column="dateadded" length="255" nullable="true"/>
     <field name="datemodified" type="string" column="datemodified" length="255" nullable="true"/>
     <field name="flatplan" type="string" column="flatplan" length="255" nullable="true"/>
-    <many-to-one target-entity="Plus78Block" field="blockid">
-      <join-column name="blockid" referenced-column-name="xmlid" />
+    <many-to-one target-entity="Plus78Block" field="block">
+      <join-column name="block_id" referenced-column-name="xml_id" />
     </many-to-one>
-    <many-to-one target-entity="Plus78Building" field="buildingid">
-      <join-column name="buildingid" referenced-column-name="xmlid" />
+    <many-to-one target-entity="Plus78Building" field="building">
+      <join-column name="building_id" referenced-column-name="xml_id" />
     </many-to-one>
   </entity>
 </doctrine-mapping>

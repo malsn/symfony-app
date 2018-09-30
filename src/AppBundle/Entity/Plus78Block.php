@@ -15,7 +15,7 @@ class Plus78Block
     /**
      * @var int
      */
-    private $xmlid;
+    private $xml;
 
     /**
      * @var string
@@ -36,17 +36,17 @@ class Plus78Block
     /**
      * @return int
      */
-    public function getXmlid()
+    public function getXml()
     {
-        return $this->xmlid;
+        return $this->xml;
     }
 
     /**
-     * @param int $xmlid
+     * @param int $xml
      */
-    public function setXmlid($xmlid)
+    public function setXml($xml)
     {
-        $this->xmlid = $xmlid;
+        $this->xml = $xml;
     }
 
     /**

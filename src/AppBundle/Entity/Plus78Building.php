@@ -20,7 +20,7 @@ class Plus78Building
     /**
      * @var Plus78Block
      */
-    private $blockid;
+    private $block;
 
     /**
      * @var string
@@ -57,17 +57,17 @@ class Plus78Building
     /**
      * @return Plus78Block
      */
-    public function getBlockid()
+    public function getBlock()
     {
-        return $this->blockid;
+        return $this->block;
     }
 
     /**
-     * @param Plus78Block $blockid
+     * @param Plus78Block $block
      */
-    public function setBlockid($blockid)
+    public function setBlock($block)
     {
-        $this->blockid = $blockid;
+        $this->block = $block;
     }
 
     /**

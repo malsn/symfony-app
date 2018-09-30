@@ -4,7 +4,7 @@
     <id name="id" type="integer" column="id">
       <generator strategy="AUTO"/>
     </id>
-    <field name="xmlid" type="integer" column="xmlid" nullable="true" unique="true"/>
+    <field name="xml" type="integer" column="xml_id" nullable="true" unique="true"/>
     <field name="name" type="string" column="name" nullable="true" length="255"/>
   </entity>
 </doctrine-mapping>

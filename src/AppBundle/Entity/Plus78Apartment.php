@@ -15,17 +15,17 @@ class Plus78Apartment
     /**
      * @var int
      */
-    private $xmlid;
+    private $xml;
 
     /**
      * @var Plus78Block
      */
-    private $blockid;
+    private $block;
 
     /**
      * @var Plus78Building
      */
-    private $buildingid;
+    private $building;
 
     /**
      * @var int
@@ -136,49 +136,49 @@ class Plus78Apartment
     /**
      * @return int
      */
-    public function getXmlId()
+    public function getXml()
     {
-        return $this->xmlid;
+        return $this->xml;
     }
 
     /**
-     * @param int $xmlid
+     * @param int $xml
      */
-    public function setXmlId($xmlid)
+    public function setXml($xml)
     {
-        $this->xmlid = $xmlid;
+        $this->xml = $xml;
     }
 
     /**
      * @return Plus78Block
      */
-    public function getBlockid()
+    public function getBlock()
     {
-        return $this->blockid;
+        return $this->block;
     }
 
     /**
-     * @param Plus78Block $blockid
+     * @param Plus78Block $block
      */
-    public function setBlockid($blockid)
+    public function setBlock($block)
     {
-        $this->blockid = $blockid;
+        $this->block = $block;
     }
 
     /**
      * @return Plus78Building
      */
-    public function getBuildingid()
+    public function getBuilding()
     {
-        return $this->buildingid;
+        return $this->building;
     }
 
     /**
-     * @param Plus78Building $buildingid
+     * @param Plus78Building $building
      */
-    public function setBuildingid($buildingid)
+    public function setBuilding($building)
     {
-        $this->buildingid = $buildingid;
+        $this->building = $building;
     }
 
 
