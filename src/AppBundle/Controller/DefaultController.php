@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\SearchLog as SearchLog;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class DefaultController extends Controller
 {
@@ -63,7 +64,7 @@ class DefaultController extends Controller
      */
     public function loadPlus78Action()
     {
-        ini_set("max_execution_time", "600");
+        ini_set("max_execution_time", "6000");
 
         $file = $_SERVER['DOCUMENT_ROOT'].'/plus78/SiteData.xml';
         $ch = curl_init();
@@ -104,10 +105,13 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $block = $em->getRepository(Plus78Block::class)->findOneBy(["xml" => $block_node_attributes['id']]);
                 if (!$block){
                     $block = new Plus78Block();
+                    $block->setXml($block_node_attributes['id']);
+                    $block->setName($block_node_attributes['title']);
+                    $block->setUpdatedAt(new \DateTime());
+                    $em->persist($block);
+                } else {
+                    $block->setUpdatedAt(new \DateTime());
                 }
-                $block->setXml($block_node_attributes['id']);
-                $block->setName($block_node_attributes['title']);
-                $em->persist($block);
                 $em->flush();
             } elseif ($xml->name == 'Building') {
                 $doc = new \DOMDocument();
@@ -116,11 +120,14 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $building = $em->getRepository(Plus78Building::class)->findOneBy(["xml" => $building_node_attributes['id']]);
                 if (!$building){
                     $building = new Plus78Building();
+                    $building->setXml($building_node_attributes['id']);
+                    $building->setBlock($building_node_attributes['blockid']);
+                    $building->setName($building_node_attributes['corp']);
+                    $building->setUpdatedAt(new \DateTime());
+                    $em->persist($building);
+                } else {
+                    $building->setUpdatedAt(new \DateTime());
                 }
-                $building->setXml($building_node_attributes['id']);
-                $building->setBlock($building_node_attributes['blockid']);
-                $building->setName($building_node_attributes['corp']);
-                $em->persist($building);
                 $em->flush();
             } elseif ($xml->name == 'Apartment') {
                 $doc = new \DOMDocument();
@@ -129,14 +136,17 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $apartment = $em->getRepository(Plus78Apartment::class)->findOneBy(["xml"=> $apartment_node_attributes['id']]);
                 if (!$apartment){
                     $apartment = new Plus78Apartment();
+                    $apartment->setXml($apartment_node_attributes['id']);
+                    $apartment->setBaseflatcost($apartment_node_attributes['baseflatcost']);
+                    $apartment->setBlock($apartment_node_attributes['blockid']);
+                    $apartment->setBuilding($apartment_node_attributes['buildingid']);
+                    $apartment->setRooms($apartment_node_attributes['rooms']);
+                    $apartment->setFlattypeid($apartment_node_attributes['flattypeid']);
+                    $apartment->setUpdatedAt(new DateTime());
+                    $em->persist($apartment);
+                } else {
+                    $apartment->setUpdatedAt(new DateTime());
                 }
-                $apartment->setXml($apartment_node_attributes['id']);
-                $apartment->setBaseflatcost($apartment_node_attributes['baseflatcost']);
-                $apartment->setBlock($apartment_node_attributes['blockid']);
-                $apartment->setBuilding($apartment_node_attributes['buildingid']);
-                $apartment->setRooms($apartment_node_attributes['rooms']);
-                $apartment->setFlattypeid($apartment_node_attributes['flattypeid']);
-                $em->persist($apartment);
                 $em->flush();
             }
         }

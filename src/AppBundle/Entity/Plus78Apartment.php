@@ -122,6 +122,11 @@ class Plus78Apartment
      */
     private $flatplan;
 
+    /**
+     * @var \DateTime
+     */
+    private $updated_at;
+
 
     /**
      * Get id
@@ -637,5 +642,22 @@ class Plus78Apartment
     {
         return $this->flatplan;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * @param \DateTime $updated_at
+     */
+    public function setUpdatedAt($updated_at)
+    {
+        $this->updated_at = $updated_at;
+    }
+
 }
 

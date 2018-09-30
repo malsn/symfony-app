@@ -7,5 +7,6 @@
     <field name="xml" type="integer" column="xml_id" nullable="false" unique="true"/>
       <field name="block" type="integer" column="block_id" nullable="false"/>
     <field name="name" type="string" column="name" length="255"/>
+      <field name="updated_at" type="datetime" column="updated_at"/>
   </entity>
 </doctrine-mapping>

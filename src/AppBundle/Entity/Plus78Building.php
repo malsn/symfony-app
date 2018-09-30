@@ -27,6 +27,10 @@ class Plus78Building
      */
     private $name;
 
+    /**
+     * @var \DateTime
+     */
+    private $updated_at;
 
     /**
      * Get id
@@ -93,5 +97,22 @@ class Plus78Building
     {
         return $this->name;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * @param \DateTime $updated_at
+     */
+    public function setUpdatedAt($updated_at)
+    {
+        $this->updated_at = $updated_at;
+    }
+
 }
 

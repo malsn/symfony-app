@@ -26,5 +26,6 @@
     <field name="dateadded" type="string" column="dateadded" length="255" nullable="true"/>
     <field name="datemodified" type="string" column="datemodified" length="255" nullable="true"/>
     <field name="flatplan" type="string" column="flatplan" length="255" nullable="true"/>
+    <field name="updated_at" type="datetime" column="updated_at"/>
   </entity>
 </doctrine-mapping>
