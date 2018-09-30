@@ -6,9 +6,8 @@
     </id>
     <field name="xmlid" type="integer" column="xmlid" nullable="false" unique="true"/>
     <field name="name" type="string" column="name" length="255"/>
-    <many-to-one target-entity="Plus78Block" field="blockid">
+    <many-to-one field="blockid" target-entity="Plus78Block">
       <join-column name="blockid" referenced-column-name="xmlid" />
-      <cascade><cascade-persist/></cascade>
     </many-to-one>
   </entity>
 </doctrine-mapping>
