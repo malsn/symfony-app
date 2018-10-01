@@ -80,7 +80,7 @@ class DefaultController extends Controller
 
         $xml = new \XMLReader();
         $xml->open($file);
-        $this->xml2DB($xml);
+        $response = $this->xml2DB($xml);
         $xml->close();
 
         /* for MySQL 6+
@@ -91,17 +91,19 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
         $stmt->execute();
         */
 
-        return new Response("Data loaded");
+        return new Response($response);
     }
 
     protected function xml2DB($xml)
     {
         $em = $this->getDoctrine()->getManager();
+        $sql_block_arr = [];
         while ($xml->read()) {
             if ($xml->name == 'Block') {
                 $doc = new \DOMDocument();
                 $block_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
                 $block_node_attributes = $block_node->attributes();
+                $sql_block_arr[] = "({$block_node_attributes['id']}, {$block_node_attributes['title']})";
                 /*$block = $em->getRepository(Plus78Block::class)->findOneBy(["xml" => $block_node_attributes['id']]);
                 if (!$block){
                     $block = new Plus78Block();
@@ -150,5 +152,7 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $em->flush();*/
             }
         }
+        $sql_block = sprintf("INSERT INTO plus78block (xml_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_block_arr), new \DateTime());
+        return $sql_block;
     }
 }
