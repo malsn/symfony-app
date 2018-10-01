@@ -67,6 +67,7 @@ class DefaultController extends Controller
         ini_set("max_execution_time", "6000");
 
         $file = $_SERVER['DOCUMENT_ROOT'].'/plus78/SiteData.xml';
+        $sql = $_SERVER['DOCUMENT_ROOT'].'/plus78/SiteData.sql';
         $ch = curl_init();
         $url = "http://test.plus78.ru/xml/SiteData.xml";
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -78,9 +79,12 @@ class DefaultController extends Controller
         fwrite($f, $response);
         fclose($f);
 
+
         $xml = new \XMLReader();
         $xml->open($file);
-        $response = $this->xml2DB($xml);
+        $s = fopen($sql, 'w');
+        fwrite($s, $this->xml2DB($xml));
+        fclose($s);
         $xml->close();
 
         /* for MySQL 6+
@@ -91,7 +95,7 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
         $stmt->execute();
         */
 
-        return new Response($response);
+        return new Response("Data uploaded");
     }
 
     protected function xml2DB($xml)
@@ -156,9 +160,9 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $em->flush();*/
             }
         }
-        $sql = sprintf("INSERT INTO plus78block (xml_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_block_arr), date("Y-m-d h:s:i"));
-        $sql .= sprintf("INSERT INTO plus78building (xml_id,block_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_building_arr), date("Y-m-d h:s:i"));
-        $sql .= sprintf("INSERT INTO plus78apartment (xml_id,block_id,building_id,rooms,flattypeid,baseflatcost) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_apartment_arr), date("Y-m-d h:s:i"));
+        $sql = sprintf("INSERT INTO plus78block (xml_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n\r", implode(",", $sql_block_arr), date("Y-m-d h:s:i"));
+        $sql .= sprintf("INSERT INTO plus78building (xml_id,block_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n\r", implode(",", $sql_building_arr), date("Y-m-d h:s:i"));
+        $sql .= sprintf("INSERT INTO plus78apartment (xml_id,block_id,building_id,rooms,flattypeid,baseflatcost) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n\r", implode(",", $sql_apartment_arr), date("Y-m-d h:s:i"));
         return $sql;
     }
 }
