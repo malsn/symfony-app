@@ -64,8 +64,8 @@ class DefaultController extends Controller
      */
     public function loadPlus78Action()
     {
-        $max_date_time = $this->getDoctrine()->getRepository(Plus78Apartment::class)->findMaxDatetime();
-
-        return new Response($max_date_time[0][1]);
+        $results = $this->getDoctrine()->getRepository(Plus78Apartment::class)->findApartLessThenMaxDatetime();
+        var_dump($results);
+        return new Response("");
     }
 }
