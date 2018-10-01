@@ -16,7 +16,7 @@ fclose($f);
 $xml = new \XMLReader();
 $xml->open($file);
 $s = fopen($sql, 'w');
-fwrite($s, $this->xml2DB($xml));
+fwrite($s, xml2DB($xml));
 fclose($s);
 $xml->close();
 
