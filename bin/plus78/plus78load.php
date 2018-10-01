@@ -43,9 +43,9 @@ function xml2DB($xml)
                 $sql_apartment_arr[] = "({$apartment_node_attributes['id']}, {$apartment_node_attributes['blockid']}, {$apartment_node_attributes['buildingid']}, {$apartment_node_attributes['rooms']}, {$apartment_node_attributes['flattypeid']}, {$apartment_node_attributes['baseflatcost']})";
             }
         }
-        $sql = sprintf("INSERT INTO plus78block (xml_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s';\n", implode(",", $sql_block_arr), date("Y-m-d h:s:i"));
-        $sql .= sprintf("INSERT INTO plus78building (xml_id,block_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s';\n", implode(",", $sql_building_arr), date("Y-m-d h:s:i"));
-        $sql .= sprintf("INSERT INTO plus78apartment (xml_id,block_id,building_id,rooms,flattypeid,baseflatcost) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s';\n", implode(",", $sql_apartment_arr), date("Y-m-d h:s:i"));
+        $sql = sprintf("INSERT INTO plus78block (xml_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s';\n", implode(",", $sql_block_arr), date("Y-m-d H:i:s"));
+        $sql .= sprintf("INSERT INTO plus78building (xml_id,block_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s';\n", implode(",", $sql_building_arr), date("Y-m-d H:i:s"));
+        $sql .= sprintf("INSERT INTO plus78apartment (xml_id,block_id,building_id,rooms,flattypeid,baseflatcost) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s';\n", implode(",", $sql_apartment_arr), date("Y-m-d H:i:s"));
         return $sql;
     }
 
