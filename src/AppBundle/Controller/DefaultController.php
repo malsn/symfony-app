@@ -88,7 +88,7 @@ class DefaultController extends Controller
         $xml->close();
 
         /* for MySQL 6+ */
-        $sql = "use myproject; source ".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.sql;";
+        $sql = 'use myproject; source '.$_SERVER['DOCUMENT_ROOT'].'/plus78/SiteData.sql;';
         $manager = $this->getDoctrine()->getManager();
         $stmt = $manager->getConnection()->prepare($sql);
         $stmt->execute();
