@@ -160,9 +160,9 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $em->flush();*/
             }
         }
-        $sql = sprintf("INSERT INTO plus78block (xml_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n\r", implode(",", $sql_block_arr), date("Y-m-d h:s:i"));
-        $sql .= sprintf("INSERT INTO plus78building (xml_id,block_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n\r", implode(",", $sql_building_arr), date("Y-m-d h:s:i"));
-        $sql .= sprintf("INSERT INTO plus78apartment (xml_id,block_id,building_id,rooms,flattypeid,baseflatcost) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n\r", implode(",", $sql_apartment_arr), date("Y-m-d h:s:i"));
+        $sql = sprintf("INSERT INTO plus78block (xml_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s';\n", implode(",", $sql_block_arr), date("Y-m-d h:s:i"));
+        $sql .= sprintf("INSERT INTO plus78building (xml_id,block_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s';\n", implode(",", $sql_building_arr), date("Y-m-d h:s:i"));
+        $sql .= sprintf("INSERT INTO plus78apartment (xml_id,block_id,building_id,rooms,flattypeid,baseflatcost) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s';\n", implode(",", $sql_apartment_arr), date("Y-m-d h:s:i"));
         return $sql;
     }
 }
