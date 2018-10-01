@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class Plus78ApartmentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findMaxDatetime()
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT max(p.updated_at)
+        FROM AppBundle\Entity\Plus78Apartment p'
+        );
+        return $query->execute();
+    }
 }
