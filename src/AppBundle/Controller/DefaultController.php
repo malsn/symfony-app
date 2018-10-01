@@ -66,6 +66,6 @@ class DefaultController extends Controller
     {
         $max_date_time = $this->getDoctrine()->getRepository(Plus78Apartment::class)->findMaxDatetime();
 
-        return new Response($max_date_time);
+        return new Response($max_date_time[0]);
     }
 }
