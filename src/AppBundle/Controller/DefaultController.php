@@ -152,7 +152,7 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $em->flush();*/
             }
         }
-        $sql_block = sprintf("INSERT INTO plus78block (xml_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_block_arr), new \DateTime());
+        $sql_block = sprintf("INSERT INTO plus78block (xml_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_block_arr), date("Y-m-d h:s:i"));
         return $sql_block;
     }
 }
