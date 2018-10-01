@@ -5,7 +5,10 @@
       <generator strategy="AUTO"/>
     </id>
     <field name="xml" type="integer" column="xml_id" nullable="false" unique="true"/>
-    <field name="block" type="integer" column="block_id" nullable="false"/>
+    <!--field name="block" type="integer" column="block_id" nullable="false"/-->
+    <many-to-one target-entity="Plus78Block" field="block">
+      <join-column column-definition="block_id" referenced-column-name="xml_id"/>
+    </many-to-one>
     <field name="building" type="integer" column="building_id" nullable="false"/>
     <field name="section" type="integer" column="section" nullable="true"/>
     <field name="rooms" type="integer" column="rooms" nullable="true"/>
