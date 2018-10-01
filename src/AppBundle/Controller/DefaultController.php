@@ -66,8 +66,8 @@ class DefaultController extends Controller
     {
         ini_set("max_execution_time", "6000");
 
-        $file = $_SERVER['DOCUMENT_ROOT'].'/plus78/SiteData.xml';
-        $sql = $_SERVER['DOCUMENT_ROOT'].'/plus78/SiteData.sql';
+        $file = '/var/www/symfony-app/bin/plus78/SiteData.xml';
+        $sql  = '/var/www/symfony-app/bin/plus78/SiteData.sql';
         $ch = curl_init();
         $url = "http://test.plus78.ru/xml/SiteData.xml";
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -88,7 +88,7 @@ class DefaultController extends Controller
         $xml->close();
 
         /* for MySQL 6+ */
-        $sql = "source ".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.sql";
+        $sql = "use myproject; source ".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.sql;";
         $manager = $this->getDoctrine()->getManager();
         $stmt = $manager->getConnection()->prepare($sql);
         $stmt->execute();
