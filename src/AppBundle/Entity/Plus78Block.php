@@ -94,5 +94,13 @@ class Plus78Block
         $this->updated_at = $updated_at;
     }
 
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
 }
 
