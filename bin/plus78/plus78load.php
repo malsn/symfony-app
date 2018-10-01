@@ -22,7 +22,6 @@ $xml->close();
 
 function xml2DB($xml)
     {
-        $em = $this->getDoctrine()->getManager();
         $sql_block_arr = [];
         $sql_building_arr = [];
         $sql_apartment_arr = [];
