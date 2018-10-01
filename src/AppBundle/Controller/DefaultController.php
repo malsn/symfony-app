@@ -137,7 +137,7 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
             } elseif ($xml->name == 'Apartment') {
                 $doc = new \DOMDocument();
                 $apartment_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
-                $sql_apartment_arr[] = "('".implode("', '", $apartment_node->attributes())."')";
+                $sql_apartment_arr[] = "('".implode("', '", array_values($apartment_node->attributes()))."')";
                 /*$apartment = $em->getRepository(Plus78Apartment::class)->findOneBy(["xml"=> $apartment_node_attributes['id']]);
                 if (!$apartment){
                     $apartment = new Plus78Apartment();
