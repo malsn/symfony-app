@@ -4,12 +4,21 @@
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>��������� ��������:</span></h1>
-                <ul>
+                <h1><span>Проданные квартиры:</span></h1>
+                <table>
+                    <thead>
+                    <th>ID</th>
+                    <th>ЖК</th>
+                    <th>Тип квартиры</th>
+                    <th>Базовая стоимость</th>
+                    </thead>
                     {% for result in results %}
-                        <li>{{ result.xml }}</li>
+                        <td>{{ result.xml }}</td>
+                        <td>{{ result.block }}</td>
+                        <td>{{ result.flattypeid }}</td>
+                        <td>{{ result.baseflatcost }}</td>
                     {% endfor %}
-                </ul>
+                </table>
             </div>
         </div>
     </div>
