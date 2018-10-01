@@ -98,12 +98,14 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
     {
         $em = $this->getDoctrine()->getManager();
         $sql_block_arr = [];
+        $sql_building_arr = [];
+        $sql_apartment_arr = [];
         while ($xml->read()) {
             if ($xml->name == 'Block') {
                 $doc = new \DOMDocument();
                 $block_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
                 $block_node_attributes = $block_node->attributes();
-                $sql_block_arr[] = "({$block_node_attributes['id']}, {$block_node_attributes['title']})";
+                $sql_block_arr[] = "({$block_node_attributes['id']}, '{$block_node_attributes['title']}')";
                 /*$block = $em->getRepository(Plus78Block::class)->findOneBy(["xml" => $block_node_attributes['id']]);
                 if (!$block){
                     $block = new Plus78Block();
@@ -119,6 +121,7 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $doc = new \DOMDocument();
                 $building_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
                 $building_node_attributes = $building_node->attributes();
+                $sql_building_arr[] = "({$building_node_attributes['id']}, {$building_node_attributes['blockid']}, '{$building_node_attributes['corp']}')";
                 /*$building = $em->getRepository(Plus78Building::class)->findOneBy(["xml" => $building_node_attributes['id']]);
                 if (!$building){
                     $building = new Plus78Building();
@@ -134,7 +137,7 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
             } elseif ($xml->name == 'Apartment') {
                 $doc = new \DOMDocument();
                 $apartment_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
-                $apartment_node_attributes = $apartment_node->attributes();
+                $sql_apartment_arr[] = "('".implode("', '", $apartment_node->attributes())."')";
                 /*$apartment = $em->getRepository(Plus78Apartment::class)->findOneBy(["xml"=> $apartment_node_attributes['id']]);
                 if (!$apartment){
                     $apartment = new Plus78Apartment();
@@ -152,7 +155,9 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
                 $em->flush();*/
             }
         }
-        $sql_block = sprintf("INSERT INTO plus78block (xml_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_block_arr), date("Y-m-d h:s:i"));
-        return $sql_block;
+        $sql = sprintf("INSERT INTO plus78block (xml_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_block_arr), date("Y-m-d h:s:i"));
+        $sql .= sprintf("INSERT INTO plus78building (xml_id,block_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_building_arr), date("Y-m-d h:s:i"));
+        $sql .= sprintf("INSERT INTO plus78apartment (xml_id,block_id,building_id,section,rooms, stotal, sroom, skitchen, sbalcony, scorridor, swatercloset, height, flattypeid, decoration, susidy, creditend, flatcostwithdiscounts, baseflatcost, flatfloor, dateadded, datemodified, flatplan) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_apartment_arr), date("Y-m-d h:s:i"));
+        return $sql;
     }
 }
