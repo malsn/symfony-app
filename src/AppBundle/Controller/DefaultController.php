@@ -87,13 +87,12 @@ class DefaultController extends Controller
         fclose($s);
         $xml->close();
 
-        /* for MySQL 6+
-        $sql = "use myproject;
-LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO TABLE plus78apartment ROWS IDENTIFIED BY '<Apartment>';";
+        /* for MySQL 6+ */
+        $sql = "use myproject; source ".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.sql;";
         $manager = $this->getDoctrine()->getManager();
         $stmt = $manager->getConnection()->prepare($sql);
         $stmt->execute();
-        */
+        /**/
 
         return new Response("Data uploaded");
     }
