@@ -137,7 +137,8 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
             } elseif ($xml->name == 'Apartment') {
                 $doc = new \DOMDocument();
                 $apartment_node = simplexml_import_dom($doc->importNode($xml->expand(), true));
-                $sql_apartment_arr[] = "('".implode("', '", array_values($apartment_node->attributes()))."')";
+                $apartment_node_attributes = $apartment_node->attributes();
+                $sql_apartment_arr[] = "({$apartment_node_attributes['id']}, {$apartment_node_attributes['blockid']}, {$apartment_node_attributes['buildingid']}, {$apartment_node_attributes['rooms']}, {$apartment_node_attributes['flattypeid']}, {$apartment_node_attributes['baseflatcost']})";
                 /*$apartment = $em->getRepository(Plus78Apartment::class)->findOneBy(["xml"=> $apartment_node_attributes['id']]);
                 if (!$apartment){
                     $apartment = new Plus78Apartment();
@@ -157,7 +158,7 @@ LOAD XML LOCAL INFILE '".$_SERVER['DOCUMENT_ROOT']."/plus78/SiteData.xml' INTO T
         }
         $sql = sprintf("INSERT INTO plus78block (xml_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_block_arr), date("Y-m-d h:s:i"));
         $sql .= sprintf("INSERT INTO plus78building (xml_id,block_id,name) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_building_arr), date("Y-m-d h:s:i"));
-        $sql .= sprintf("INSERT INTO plus78apartment (xml_id,block_id,building_id,section,rooms, stotal, sroom, skitchen, sbalcony, scorridor, swatercloset, height, flattypeid, decoration, susidy, creditend, flatcostwithdiscounts, baseflatcost, flatfloor, dateadded, datemodified, flatplan) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_apartment_arr), date("Y-m-d h:s:i"));
+        $sql .= sprintf("INSERT INTO plus78apartment (xml_id,block_id,building_id,rooms,flattypeid,baseflatcost) VALUES %s ON DUPLICATE KEY UPDATE updated_at='%s'\n", implode(",", $sql_apartment_arr), date("Y-m-d h:s:i"));
         return $sql;
     }
 }
