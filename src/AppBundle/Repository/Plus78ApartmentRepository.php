@@ -31,7 +31,7 @@ class Plus78ApartmentRepository extends \Doctrine\ORM\EntityRepository
         )->setParameter('max_time',$this->findMaxDatetime());*/
 
         $query = $this->createQueryBuilder('c')
-            ->select('c, cb')
+            ->select('c')
             ->leftJoin('AppBundle:Plus78Block', 'cb', 'WITH', 'cb.xml = c.block')
             ->where('c.updated_at < :max_time')
             ->setParameter('max_time',$this->findMaxDatetime());
