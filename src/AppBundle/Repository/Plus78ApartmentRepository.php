@@ -25,9 +25,9 @@ class Plus78ApartmentRepository extends \Doctrine\ORM\EntityRepository
     {
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(
-            'SELECT p
+            "SELECT p
         FROM AppBundle\Entity\Plus78Apartment p
-        WHERE p.updated_at < :max_time'
+        WHERE p.updated_at < ':max_time'"
         )->setParameter('max_time',$this->findMaxDatetime());
 
         return $query->execute();

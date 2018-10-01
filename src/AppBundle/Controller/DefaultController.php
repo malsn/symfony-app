@@ -65,7 +65,8 @@ class DefaultController extends Controller
     public function loadPlus78Action()
     {
         $results = $this->getDoctrine()->getRepository(Plus78Apartment::class)->findApartLessThenMaxDatetime();
-        var_dump($results);
-        return new Response("");
+        return $this->render('default/apartments.html.twig', [
+            'results' => $results,
+        ]);
     }
 }
