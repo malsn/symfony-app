@@ -64,8 +64,6 @@ class DefaultController extends Controller
      */
     public function loadPlus78Action()
     {
-        ini_set("max_execution_time", "6000");
-
         $file = '/var/www/symfony-app/bin/plus78/SiteData.xml';
         $sql  = '/var/www/symfony-app/bin/plus78/SiteData.sql';
         $ch = curl_init();
@@ -86,13 +84,6 @@ class DefaultController extends Controller
         fwrite($s, $this->xml2DB($xml));
         fclose($s);
         $xml->close();
-
-        /* for MySQL 6+ */
-        $sql = 'use myproject; source /var/www/symfony-app/bin/plus78/SiteData.sql;';
-        $manager = $this->getDoctrine()->getManager();
-        $stmt = $manager->getConnection()->prepare($sql);
-        $stmt->execute();
-        /**/
 
         return new Response("Data uploaded");
     }
