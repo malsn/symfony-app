@@ -37,6 +37,6 @@ class Plus78ApartmentRepository extends \Doctrine\ORM\EntityRepository
             ->where('c.updated_at = < :max_time')
             ->setParameter('max_time',$this->findMaxDatetime());
 
-        return $query->execute();
+        return $query->getQuery()->execute();
     }
 }
