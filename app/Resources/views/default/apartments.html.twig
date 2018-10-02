@@ -25,7 +25,7 @@
                 </table>
                 <h2><span>Характеристики:</span></h2>
                 <ul>
-                    <li>Backend результат выполнен на Symfony {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}. База данных Mysql.</li>
+                    <li>Backend результат выполнен на Symfony {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}, Сервер БД Mysql 5.1, PHP 5.3, Apache Webserver</li>
                     <li>Поиск проданных квартир осуществляется по предварительно загруженной и периодически обновляемой БД</li>
                     <li>Загрузка и обновление БД квартир осуществляется в фоновом режиме через CRON задание с периодиностью в 5 минут, где выполняется PHP скрипт разбора XML файла и UPDATE записей с помощью MySQL utilities</li>
                     <li>Время обновления фиксируется в БД и отображается на странице результата.</li>
