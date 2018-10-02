@@ -4,7 +4,7 @@
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>Проданные квартиры по состоянию обновения на {{ updated_at }}:</span></h1>
+                <h1><span>Проданные квартиры<br/>Обновение от {{ updated_at }}</span></h1>
                 <table>
                     <thead>
                     <th>ID Квартиры</th>
@@ -130,6 +130,7 @@
                     opacity: 1;
                 }
             }
+            table th, table td { text-align: center; }
             .sf-toolbar {
                 opacity: 0;
                 -webkit-animation: fade-in 1s .2s forwards;
