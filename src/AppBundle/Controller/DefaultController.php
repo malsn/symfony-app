@@ -60,7 +60,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/plus78", name="plus78")
+     * @Route("/plus78/", name="plus78")
      */
     public function loadPlus78Action()
     {
