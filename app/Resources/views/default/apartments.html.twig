@@ -7,16 +7,16 @@
                 <h1><span>Проданные квартиры:</span></h1>
                 <table>
                     <thead>
-                    <th>ID</th>
-                    <th>ЖК</th>
+                    <th>ID Квартиры</th>
+                    <th>Жилой Комлекс</th>
                     <th>Тип квартиры</th>
-                    <th>Базовая стоимость</th>
+                    <th>Базовая стоимость, руб</th>
                     </thead>
                     {% for result in results %}
                     <tr>
                         <td>{{ result.xml }}</td>
                         <td>{{ result.block.name }}</td>
-                        <td>{{ result.flattyp.name }}</td>
+                        <td>{{ result.flattype.name }}</td>
                         <td>{{ result.baseflatcost }}</td>
                     </tr>
                     {% endfor %}
