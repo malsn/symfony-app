@@ -21,7 +21,6 @@
     <many-to-one target-entity="Plus78Flat" field="flattype">
       <join-column name="flattype_id" referenced-column-name="id"/>
     </many-to-one>
-    <field name="flattypeid" type="integer" column="flattypeid"/>
     <field name="decoration" type="string" column="decoration" length="255" nullable="true"/>
     <field name="susidy" type="integer" column="susidy" nullable="true"/>
     <field name="creditend" type="integer" column="creditend" nullable="true"/>
