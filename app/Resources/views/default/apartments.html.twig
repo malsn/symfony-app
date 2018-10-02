@@ -14,8 +14,9 @@
                     </thead>
                     {% for result in results %}
                         <td>{{ result.xml }}</td>
-
-                        <td>{{ result.name }}</td>
+                        <td>{{ result.block.name }}</td>
+                        <td>{{ result.flattypeid }}</td>
+                        <td>{{ result.baseflatcost }}</td>
                     {% endfor %}
                 </table>
             </div>
