@@ -22,6 +22,7 @@ $xml->close();
 
 function xml2DB($xml)
     {
+
         $sql_block_arr = [];
         $sql_building_arr = [];
         $sql_apartment_arr = [];
