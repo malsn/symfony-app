@@ -10,6 +10,7 @@
                     <th>ID Квартиры</th>
                     <th>Жилой Комлекс</th>
                     <th>Тип квартиры</th>
+                    <th>Колиство комнат</th>
                     <th>Базовая стоимость, руб</th>
                     </thead>
                     {% for result in results %}
@@ -17,6 +18,7 @@
                         <td>{{ result.xml }}</td>
                         <td>{{ result.block.name }}</td>
                         <td>{{ result.flattype.name }}</td>
+                        <td>{{ result.rooms }}</td>
                         <td>{{ result.baseflatcost }}</td>
                     </tr>
                     {% endfor %}
