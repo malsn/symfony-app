@@ -70,7 +70,7 @@ class DefaultController extends Controller
         //$results1 = $this->getDoctrine()->getRepository(Plus78Block::class)->findAll();
 
         return $this->render('default/apartments.html.twig', [
-            'results' => $results,
+            'results' => $results['res'], 'updated_at' => $results['updated_at']
         ]);
     }
 }

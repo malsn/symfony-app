@@ -23,12 +23,14 @@ class Plus78ApartmentRepository extends \Doctrine\ORM\EntityRepository
 
     public function findApartLessThenMaxDatetime()
     {
+        $max_time = $this->findMaxDatetime();
+
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(
             'SELECT p
         FROM AppBundle\Entity\Plus78Apartment p
         WHERE p.updated_at < :max_time'
-        )->setParameter('max_time',$this->findMaxDatetime());
+        )->setParameter('max_time',$max_time);
 
         /*$query = $this->createQueryBuilder('c')
             ->select('c')
@@ -36,6 +38,6 @@ class Plus78ApartmentRepository extends \Doctrine\ORM\EntityRepository
             ->where('c.updated_at < :max_time')
             ->setParameter('max_time',$this->findMaxDatetime());*/
 
-        return $query->execute();
+        return ['res' => $query->execute(),'updated_at' => $max_time];
     }
 }
