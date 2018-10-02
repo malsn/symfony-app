@@ -13,10 +13,12 @@
                     <th>Базовая стоимость</th>
                     </thead>
                     {% for result in results %}
+                    <tr>
                         <td>{{ result.xml }}</td>
                         <td>{{ result.block.name }}</td>
-                        <td>{{ result.flattypeid }}</td>
+                        <td>{{ result.flattyp.name }}</td>
                         <td>{{ result.baseflatcost }}</td>
+                    </tr>
                     {% endfor %}
                 </table>
             </div>

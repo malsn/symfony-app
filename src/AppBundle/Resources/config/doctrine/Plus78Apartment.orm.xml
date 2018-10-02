@@ -5,7 +5,6 @@
       <generator strategy="AUTO"/>
     </id>
     <field name="xml" type="integer" column="xml_id" nullable="false" unique="true"/>
-    <!--field name="block" type="integer" column="block_id" nullable="false"/-->
     <many-to-one target-entity="Plus78Block" field="block">
       <join-column name="block_id" referenced-column-name="id"/>
     </many-to-one>
@@ -19,6 +18,9 @@
     <field name="scorridor" type="float" column="scorridor" nullable="true"/>
     <field name="swatercloset" type="string" column="swatercloset" length="255" nullable="true"/>
     <field name="height" type="float" column="height" nullable="true"/>
+    <many-to-one target-entity="Plus78Flat" field="flattype">
+      <join-column name="flattype_id" referenced-column-name="id"/>
+    </many-to-one>
     <field name="flattypeid" type="integer" column="flattypeid"/>
     <field name="decoration" type="string" column="decoration" length="255" nullable="true"/>
     <field name="susidy" type="integer" column="susidy" nullable="true"/>

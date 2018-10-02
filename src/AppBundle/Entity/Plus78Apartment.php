@@ -73,9 +73,9 @@ class Plus78Apartment
     private $height;
 
     /**
-     * @var int
+     * @var Plus78Flat
      */
-    private $flattypeid;
+    private $flattype;
 
     /**
      * @var string
@@ -404,28 +404,21 @@ class Plus78Apartment
     }
 
     /**
-     * Set flattypeid
-     *
-     * @param integer $flattypeid
-     *
-     * @return Plus78Apartment
+     * @return Plus78Flat
      */
-    public function setFlattypeid($flattypeid)
+    public function getFlattype()
     {
-        $this->flattypeid = $flattypeid;
-
-        return $this;
+        return $this->flattype;
     }
 
     /**
-     * Get flattypeid
-     *
-     * @return int
+     * @param Plus78Flat $flattype
      */
-    public function getFlattypeid()
+    public function setFlattype($flattype)
     {
-        return $this->flattypeid;
+        $this->flattype = $flattype;
     }
+
 
     /**
      * Set decoration
