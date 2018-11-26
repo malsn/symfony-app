@@ -63,7 +63,8 @@
  * It is something like logical AND function, which could be executed by the one IF ELSE statement,
  * but there are some functions that have to be executed for each of the option if it is TRUE or FALSE like EVENTS
  *
- * To make it more readable, reusable and simple i made an array from starting options like A,B,C,D,E ( index 0 )and associated success ( index 1 ) and fail ( index 2 ) named functions(events),
+ * To make it more readable, reusable and simple i made an array from starting options like A,B,C,D,E ( index 0 )
+ * and associated success ( index 1 ) and fail ( index 2 ) named functions(events),
  * which could probably print some information as in example below. The sequence of such an array is sensitive and it reflects the order of testing
  *
  * So, first, to make a workable example i declared that named functions
@@ -71,8 +72,8 @@
  * Test Function returns true if all options where positive, and returns FALSE after first negative value happened and called associated fail function.
  *
  * If it is required to exclude/include some test, we have to exclude that element from or add additional element to the options array with it's success and fail functions.
- * The key 'val' is required
- * Keys 'success' and 'fail' are optional. There is no call to non-existent functions.
+ * The key 0 of the tested value is required
+ * Keys 1 for success function and 2 for fail function are optional. There is no call to non-existent functions.
  * That's all.
  *
  * Here are some examples to test this code with:
